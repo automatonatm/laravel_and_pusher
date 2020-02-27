@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Model\Question;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -54,4 +55,14 @@ class User extends Authenticatable
             $model->{$model->getKeyName()} = (string) Str::uuid();
         });
     }
+
+    public function question()
+    {
+        return $this->hasMany(Question::class);
+    }
+
+
+
+
+
 }

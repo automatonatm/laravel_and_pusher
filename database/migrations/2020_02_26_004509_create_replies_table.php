@@ -18,10 +18,10 @@ class CreateRepliesTable extends Migration
             $table->uuid('user_id');
             $table->uuid('question_id');
             $table->longText('body');
-            $table->foreign('question_id')
+          /*  $table->foreign('question_id')
                 ->references('id')
                 ->on('questions')
-                ->onDelete('cascade');
+                ->onDelete('cascade');*/
             $table->timestamps();
         });
     }
