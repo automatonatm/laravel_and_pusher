@@ -3,83 +3,37 @@
 namespace App\Http\Controllers;
 
 use App\Model\Like;
+use App\Model\Reply;
 use Illuminate\Http\Request;
 
 class LikeController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Create a new AuthController instance.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
-    public function index()
+    public function __construct()
     {
-        //
+        //$this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('jwt');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function likeIt(Reply $reply)
     {
-        //
+        Like::create([
+            'user_id' => 'c10c5dfa-9c35-45b8-a9e3-3cda49c5f709',
+            'reply_id' => $reply->id
+        ]);
+
+        return response('success',  200);
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function UnlikeIt(Reply $reply)
     {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Model\Like  $like
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Like $like)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Model\Like  $like
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Like $like)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Model\Like  $like
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Like $like)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Model\Like  $like
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Like $like)
-    {
-        //
+        Like::where('user_id', 'c10c5dfa-9c35-45b8-a9e3-3cda49c5f709')->where('reply_id', $reply->id)->first()->delete();
+        return response('success',  200);
     }
 }
